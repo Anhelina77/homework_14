@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 14</title>
+</head>
+<body>
+    <script>
+        function Student(name, surname, year) {
+            this.name = name;
+            this.surname = surname;
+            this.year = year;
+
+        let attendance = new Array(10);
+        let estimates = new Array(10);
+
+      
+        Object.defineProperty(this, 'attendance', {
+            get: function () {
+        return attendance;
+        },
+        set: function (newValue) {
+            for (let i = 0, len = attendance.length; i < len; i++) {
+                if (!attendance[i]) {
+                    attendance[i] = !!newValue;
+                break;
+                }
+            }
+        },
+        configurable: false,
+        });
+
+
+        Object.defineProperty(this, 'estimates', {
+            get: function () {
+        return estimates;
+        },
+        set: function (newValue) {
+            for (let i = 0, len = estimates.length; i < len; i++) {
+                if (!estimates[i]) {
+                    estimates[i] = newValue;
+                break;
+                }
+            }
+        },
+        configurable: false,
+        });
+        }
+
+    Student.prototype.getAge = function () {
+
+    return new Date().getFullYear() - this.year;
+        };
+
+    Student.prototype.getAvgMark = function () {
+ 
+    return (
+        this.estimates.reduce((sum, elem) => {
+        return sum + elem;
+        }, 0) / this.estimates.length
+        );
+    };
+
+    Student.prototype.getAvgAttendance = function () {
+ 
+    return (
+        this.attendance.reduce((sum, elem) => {
+        return sum + elem;
+        }, 0) / this.attendance.length
+        );
+    };
+
+    Student.prototype.present = function () {
+        this.attendance = true;
+
+        return this.attendance;
+        };
+
+    Student.prototype.absent = function () {
+        this.attendance = false;
+
+        return this.attendance;
+        };
+
+    Student.prototype.mark = function (number) {
+        if (number >= 0 && number <= 10) {
+        this.estimates = number;
+        }
+
+        return this.estimates;
+        };
+
+    Student.prototype.summary = function () {
+        const avgMark = this.getAvgMark();
+        const avgAttendance = this.getAvgAttendance();
+
+        console.log(avgMark, avgAttendance);
+            if (avgMark > 9 && avgAttendance > 0.9) {
+            return 'Ути какой молодчинка!';
+        } else if (avgMark <= 9 || avgAttendance <= 0.9) {
+            return 'Норм, но можно лучше';
+        } else {
+            return 'Редиска!';
+            }
+        };
+
+        const user1 = new Student('Ваня', 'Прокопенко', 1989);
+        const user2 = new Student('Олег', 'Захарченко', 1995);
+
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.present();
+user1.absent();
+user1.mark(10);
+user1.mark(10);
+user1.mark(10);
+user1.mark(10);
+user1.mark(10);
+user1.mark(9);
+user1.mark(9);
+user1.mark(9);
+user1.mark(9);
+user1.mark(9);
+
+user2.present();
+user2.present();
+user2.present();
+user2.present();
+user2.present();
+user2.present();
+user2.present();
+user2.absent();
+user2.absent();
+user2.absent();
+user2.mark(5);
+user2.mark(10);
+user2.mark(7);
+user2.mark(10);
+user2.mark(9);
+user2.mark(10);
+user2.mark(10);
+user2.mark(8);
+user2.mark(9);
+user2.mark(8);
+
+console.log(
+  user1.name,
+  user1.surname,
+  user1.getAge(),
+  user1.getAvgMark(),
+  user1.summary(),
+);
+console.log(
+  user2.name,
+  user2.surname,
+  user2.getAge(),
+  user2.getAvgMark(),
+  user2.summary(),
+);
+    </script>
+</body>
+</html>
