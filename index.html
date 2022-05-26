@@ -96,15 +96,14 @@
         const avgMark = this.getAvgMark();
         const avgAttendance = this.getAvgAttendance();
 
-        console.log(avgMark, avgAttendance);
-            if (avgMark > 9 && avgAttendance > 0.9) {
+        if (avgMark > 9 && avgAttendance > 0.9) {
             return 'Ути какой молодчинка!';
-        } else if (avgMark <= 9 || avgAttendance <= 0.9) {
-            return 'Норм, но можно лучше';
-        } else {
+        } else if (avgMark <= 9 && avgAttendance <= 0.9) {
             return 'Редиска!';
-            }
-        };
+        } else {
+            return 'Норм, но можно лучше';
+        }
+    };
 
         const user1 = new Student('Ваня', 'Прокопенко', 1989);
         const user2 = new Student('Олег', 'Захарченко', 1995);
